@@ -26,14 +26,14 @@
 
 #define STATE_PERFORM_TASK (0x01) /* Performs tasks */
 
-class CThreadPool
+class ThreadPool
 {
 public:
-    explicit CThreadPool(int thread_num) : m_thread_num(thread_num)
+    explicit ThreadPool(int thread_num) : m_thread_num(thread_num)
     {
         m_worker_threads = std::vector<std::thread>(m_thread_num);
     }
-    ~CThreadPool()
+    ~ThreadPool()
     {
         stop();
     }
@@ -49,7 +49,7 @@ public:
         m_state |= STATE_PERFORM_TASK;
         for (int i = 0; i < m_thread_num; ++i)
         {
-            m_worker_threads.at(i) = std::move(std::thread(&CThreadPool::thread_task, this));
+            m_worker_threads.at(i) = std::move(std::thread(&ThreadPool::thread_task, this));
         }
         m_condition_lock.notify_all();
     }
@@ -85,7 +85,7 @@ public:
     }
 
     /* 获取初始化线程个数 */
-    uint size() { return m_thread_num; }
+    int size() { return m_thread_num; }
 
 private:
     void thread_task()
@@ -103,13 +103,11 @@ private:
                     m_condition_lock.wait(lock);
                 }
 
-                flag = m_task_queue.dequeue(task_func);
+                task_func = m_task_queue.front();
+                m_task_queue.pop();
             }
 
-            if (flag == true)
-            {
-                task_func();
-            }
+            task_func();
         }
     }
 

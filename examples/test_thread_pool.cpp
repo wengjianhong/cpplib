@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#include "../thread_pool.hpp"
+#include "../src/thread_pool.hpp"
 
 int fun(int taskid, int n)
 {
