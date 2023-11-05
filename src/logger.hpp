@@ -1,7 +1,7 @@
 /***********************************************************
  * @file        logger.hpp
  * @author      wengjianhong (wengjianhong2099@163.com)
- * @brief       Òì²½ÈÕÖ¾¼ÇÂ¼Æ÷
+ * @brief       å¼‚æ­¥æ—¥å¿—è®°å½•å™¨
  * @version     0.1
  * @date        2023-10-26
  * @copyright   Copyright (c) 2023
@@ -19,23 +19,25 @@
 
 class Logger
 {
-private:
-    time_t                      interval_ = 5;          // ¼ä¸ôË¢ĞÂÊ±¼ä, µ¥Î»: Ãë, Ä¬ÈÏ5Ãë
-    size_t                      filesize_ = 128 << 20;  // ÎÄ¼ş×î´ó´óĞ¡, µ¥Î»: B, Ä¬ÈÏ128MB
-    std::string                 name_ = "";             // ÈÕÖ¾¼ÇÂ¼Æ÷Ãû³Æ
-    std::queue<std::string>     buffer_;                // ÈÕÖ¾»º³åÇø
-
 public:
     enum LogLevel
     {
-        TRACE,
-        DEBUG,
-        INFO,
-        WARN,
-        ERROR,
-        FATAL,
-        NUM_LOG_LEVELS,
+        TRACE= 0,
+        DEBUG = 10,
+        INFO = 20,
+        WARN = 30,
+        ERROR = 40,
+        CRITICAL = 50,
+        FATAL = 60,
     };
+
+private:
+    int                     logLevel_ = LogLevel::INFO; // æ—¥å¿—çº§åˆ«
+    time_t                  interval_ = 5;              // é—´éš”åˆ·æ–°æ—¶é—´, å•ä½: ç§’, é»˜è®¤5ç§’
+    size_t                  filesize_ = 128 << 20;      // æ–‡ä»¶æœ€å¤§å¤§å°, å•ä½: B, é»˜è®¤128MB
+    std::string             outDirectory_ = "";         // æ—¥å¿—çš„è¾“å‡ºè·¯å¾„
+    std::string             name_ = "";                 // æ—¥å¿—å™¨åç§°
+    std::queue<std::string> buffer_;                    // æ—¥å¿—ç¼“å†²åŒº
 
 public:
     Logger(std::string name);
@@ -44,6 +46,12 @@ public:
 
     void Flush();
 
+    /**
+     * @brief           Log a message with severity 'INFO' on the root logger.
+     * @param msg 
+     * @param args 
+    */
+    void info(const char* msg, const char* args);
 
     // Getter / Setter
     void SetName(const std::string& name) { name_ = name; }
@@ -54,6 +62,12 @@ public:
 
     void SetFileSize(size_t filesize) { filesize_ = filesize; }
     size_t GetFileSize() { return filesize_; }
+
+    void SetLogLevel(int level) { logLevel_ = level; }
+    int GetLogLevel() { return logLevel_; }
+
+private:
+    void Append(const char* func, size_t line, LogLevel level, const char* info);
 };
 
 

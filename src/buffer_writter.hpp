@@ -12,7 +12,7 @@
 
 
 class BufferWritter {
-    static const size_t     BUFFER_SIZE = 8<<20;    // »º³åÇø´óÐ¡£¬8MB
+    static const size_t     BUFFER_SIZE = 8<<20;    // ç¼“å†²åŒºå¤§å°ï¼Œ8MB
     const char*             buffer_ = nullptr;      // 
 
 
@@ -23,8 +23,6 @@ public:
     void Flush();
 
 };
-
-
 
 
 #endif // !__BUFFER_WRITTER_H__
