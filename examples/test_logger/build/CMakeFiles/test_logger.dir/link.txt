@@ -1,0 +1,1 @@
+/usr/bin/c++  -O0 -Wall -g CMakeFiles/test_logger.dir/test_logger.cpp.o -o test_logger  -lpthread 

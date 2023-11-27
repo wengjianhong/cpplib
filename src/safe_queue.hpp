@@ -93,7 +93,7 @@ public:
      * @brief       inserts element at the end.
      * @param value arguments to forward to the constructor of the element.
      */
-    inline void emplace(T& value)
+    inline void emplace(const T& value)
     {
         std::unique_lock<std::mutex> lock(mutex_);
         data_.emplace(value);
