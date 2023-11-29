@@ -162,7 +162,9 @@ Logger::Logger(const std::string& name, const std::string& path)
     logLevel_ = LOG_LEVEL::INFO;
     threadStatus_ = THREAD_STATUS::INIT;
 
-    while (messageQueue_.size() > 0) {
+    (void)CreateDirectories(path);
+    while (messageQueue_.size() > 0)
+    {
         messageQueue_.pop();
     }
 }

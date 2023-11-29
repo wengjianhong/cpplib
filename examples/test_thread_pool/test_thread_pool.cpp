@@ -1,11 +1,13 @@
+#include <time.h>
 #include <stdio.h>
-#include "../src/thread_pool.hpp"
+#include <unistd.h>
+#include "thread_pool.hpp"
 
 int fun(int taskid, int n)
 {
-    for (size_t i = 0; i < n; i++)
+    for (int i = 0; i < n; i++)
     {
-        usleep(1);
+        usleep(1000);
     }
     printf("task %d end\n", taskid);
     return taskid * 100000 + n;
@@ -13,21 +15,21 @@ int fun(int taskid, int n)
 
 int main()
 {
-    ThreadPool pool(5);
+    ThreadPool pool(10);
 
     std::future<int> ret[13];
     for (int i = 0; i < 13; i++)
     {
-        ret[i] = pool.enqueue(fun, i, 3);
+        ret[i] = pool.enqueue(fun, i, i % 3);
     }
 
     printf("run...\n");
     pool.run();
-    usleep(1);
+    sleep(1);
 
     printf("stop...\n");
     pool.stop();
-    usleep(5);
+    sleep(5);
 
     printf("run...\n");
     pool.run();

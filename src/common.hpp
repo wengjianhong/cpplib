@@ -18,6 +18,7 @@
  * @return      0=Success, other=Fail.
 */
 int CreateDirectories(const std::string& path) {
+    int nRet = 0;
     char delimiter = '/';
     struct stat statPah;
 
@@ -30,11 +31,12 @@ int CreateDirectories(const std::string& path) {
                 continue;
             }
 
-            if (mkdir(subPath.c_str(), S_IRWXU | S_IRGRP | S_IROTH) != 0) {
-                return false;
+            nRet = mkdir(subPath.c_str(), S_IRWXU | S_IRGRP | S_IROTH);
+            if (nRet != 0) {
+                return nRet;
             }
         }
     }
 
-    return true;
+    return nRet;
 }
