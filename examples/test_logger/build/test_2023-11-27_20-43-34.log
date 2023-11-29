@@ -1,4 +1,0 @@
-[2023-11-27 20:43:34] /home/wengjh/git/wengjianhong/cpplib/examples/test_logger/test_logger.cpp:5       [DEBUG] 12345
-[2023-11-27 20:43:34] /home/wengjh/git/wengjianhong/cpplib/examples/test_logger/test_logger.cpp:6       [INFO] fdsafdsafsd
-[2023-11-27 20:43:34] /home/wengjh/git/wengjianhong/cpplib/examples/test_logger/test_logger.cpp:7       [ERROR] 123.456000
-

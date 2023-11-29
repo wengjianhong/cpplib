@@ -1,3 +1,0 @@
-/home/wengjh/git/wengjianhong/cpplib/examples/test_logger/build/CMakeFiles/test_logger.dir
-/home/wengjh/git/wengjianhong/cpplib/examples/test_logger/build/CMakeFiles/edit_cache.dir
-/home/wengjh/git/wengjianhong/cpplib/examples/test_logger/build/CMakeFiles/rebuild_cache.dir
